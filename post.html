@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Sample Post</title>
+    <title>Network Boot</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +29,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</head>
 
 <body>
 
@@ -74,9 +73,9 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Man must explore, and this is exploration at its greatest</h1>
-                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
-                        <span class="meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</span>
+                        <h1>NETWORK BOOT</h1>
+                        <h2 class="subheading">Installing and configuring diskless network booting on Ubuntu 16.04 servers</h2>
+                        <span class="meta">Posted by <a href="about.html">Daniel Richards</a> on August 8, 2017</span>
                     </div>
                 </div>
             </div>
@@ -84,11 +83,60 @@
     </header>
 
     <!-- Post Content -->
+
     <article>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
+
+<head>
+<p>During my summer internship with the SETI Institute, I was given the task of getting network booting to work on the Institute's network at the Allen Telescope Array.</p>
+<p>Logically, I thought the first step would be to install and setup DNS and DHCP servers. However, after I screwed up some mounting and had to start over(beware of any command that starts with $sudo dd), I looked for a faster/easier option. My prayers were answered in the form of <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">DNSmasq.</a> DNSmasq is an incredible piece of software that includes already integrated DNS, DHCP and TFTP servers.
+On Server1, run: </p> 
+
+
+ </head>
+    
+
+      <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo apt-get install dnsmasq </td>
+         </tr>
+         </td>
+      </table>
+   <p> DNSmasq is incredibly easy, just run:</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service dnsmasq start</td>
+         </tr>
+         </td>
+      </table>
+ <p> And you should have a functioning DNS</p>
+
+      <title>HTML Table Caption</title>
+  
+    
+   <body>
+      <table border = ".5" width = "100%" >
+         <caption>IPs Used</caption>
+         
+         <tr>
+            <td bgcolor="#e3e3e3"> Machine Name </td><td bgcolor="#e3e3e3"> IP</td>
+         </tr>
+         <tr>
+            <td> Server1</td><td > 10.1.49.168</td>
+         </tr>
+         <tr>
+            <td> Client1</td><td> 10.1.49.171</td>
+         </tr>
+      </table>
+   </body>
+
+
+         
+      </table>
+
+                    
 
                     <p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
 
@@ -136,7 +184,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
-                            <a href="#">
+                            <a href="https://twitter.com/Danabyte">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -144,15 +192,15 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="http://linkedin.com/in/daniel-richards-70700983">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="https://github.com/danieldrichards">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -160,7 +208,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2016</p>
+                    <p class="copyright text-muted">Copyright &copy; Daniel Richards 2017</p>
                 </div>
             </div>
         </div>
