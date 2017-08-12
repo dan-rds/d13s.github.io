@@ -32,7 +32,7 @@ $(function() {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
             $.ajax({
-                url: "//formspree.io/ddrichar@ucsc.edu",
+                url: "//formspree.io/dan@richardsgroup.us",
                 type: "POST",
                 dataType: "json",
                 data: {
