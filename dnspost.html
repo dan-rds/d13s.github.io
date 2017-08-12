@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Network Boot</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="index.html">Daniel Richards</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="post.html">The Network Boot Project</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>DNS and DHCP servers</h1>
+                        <h2 class="subheading">NETWORK BOOT part 1 </h2>
+                        <span class="meta">Posted by <a href="about.html">Daniel Richards</a> on August 8, 2017</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<head>
+
+<h1> OVERVIEW </h1>
+<p>During my summer internship with the SETI Institute, I was given the task of getting network booting to work on the Institute's network at the Allen Telescope Array.</p>
+
+
+<h3> Some Details </h3>
+
+<body>
+      <table text-align: center; border = ".5" width = "100%" >
+         <caption><h5 style="color:#000000;" >1) </h5>IPs Used</caption>
+         
+         <tr>
+            <td bgcolor="#e3e3e3"> Machine Name </td><td bgcolor="#e3e3e3"> IP</td>
+         </tr>
+         <tr>
+            <td> Server1</td><td > 10.1.49.168</td>
+         </tr>
+         <tr text-align: center;>
+            <td> Client1</td><td > 10.1.49.171 (until DHCP works, then it varies)</td>
+         </tr>
+      </table>
+   </body>
+
+<p><h5>2) </h5>If you have not already, check out my page on <a href="aliasPost.html">Aliases</a>. This will make your life much easier. I made a simple bash script to clone from git that will give you some handy aliases to work with.</p>
+
+<p><h5>3) </h5>Last detail, I am an avid Emacs fan so if you prefer vi (or even nano) feel free, you just wont be able to copy-past my commands as easily. </p>
+
+<h3>Installing DNSmasq</h3>
+
+<p>Logically, I thought the first step would be to install and setup DNS and DHCP servers. However, after I screwed up some mounting and had to start over(beware of any command that starts with $sudo dd), I looked for a faster/easier option. My prayers were answered in the form of <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">DNSmasq.</a> DNSmasq is an incredible piece of software that includes already integrated DNS, DHCP and TFTP servers.</br>
+To install on Server1, run: </p> 
+
+ </head>
+    
+
+      <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo apt-get install dnsmasq </td>
+         </tr>
+         </td>
+      </table>
+   <p> DNSmasq is incredibly easy, just run:</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service dnsmasq start</td>
+         </tr>
+         </td>
+      </table>
+      <h3>Configuring DNSmasq</h3>
+      <p> All the configruation is done inside /etc/dnsmasq.conf. Over the course of this project, there were a few seperate occations where I would come across a problem, scratch my head for awhile, only to find a line in the config file that solved it instantly.
+      
+      <blockquote>
+       For instance, I was getting an unknown machine with no name getting and releasing leases every five seconds! I wasted HOURS looking for a solution Only to find the line:
+        </br> # dhcp-host=11:22:33:44:55:66,ignore
+       </blockquote></p>
+      <!-- 
+<p> Now all you have to do is point Server1's DNS queries to itself. </br> Open your network interface file with:</p>
+  <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo emacs /etc/network/interfaces</td>
+         </tr>
+         </td>
+      </table>
+      <p> And where your primary interface says nameserver 8.8.8.8(or something similar) Change it to:</p>
+      <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> nameserver 127.0.0.1</td>
+         </tr>
+         </td>
+      </table> 
+      -->
+      <p>For now, find the line #listen-address= Mine was on line 111.
+      Change the 'listen address' to your local host and uncomment, like so:</p>
+
+      <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> listen-address= 127.0.0.1 </td>
+         </tr>
+         </td>
+      </table>
+<p> Now start DNSmasq, and check its status to see if it worked.</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service dnsmasq start</td>
+         </tr>
+          <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service dnsmasq status</td>
+         </tr>
+      </table>
+      <blockquote><b>NOTE:</b> $ remasq <div>is a faster way of doing this. If you ran my <a href="aliasPost.html">alias script.</a></div> </blockquote>
+<p>On any other computer you want to use Server1 as the DNS, change its interfaces to: <p>
+
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> dns-nameservers 10.1.49.168 </td><td bgcolor="#e3e3e3"> # Server1's IP</td>
+         </tr>
+         </td>
+      </table>
+      <blockquote><b>NOTE:</b> don't forget the 's' at the end of dns-nameservers </blockquote>
+ <p> And you should have a functioning DNS! In order to test the DNS, try</p>
+    <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> nslookup Client1  </br>  or  </br> nslookup [Client's IP] </td> 
+         </tr>
+         </td>
+      </table>
+
+ <h1>DHCP </h1>
+
+   <p>Next, Lets work on the DHCP. Lucky for us, DNSmasq has a built in DHCP service. All we need to do is activate it and configure the info sent to --and requested from-- the client. <b>The client configuration is on Server1</b> in /etc/dhcp/dhclient.conf  </p>
+      <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo emacs /etc/dhcp/dhclient.conf</td>
+
+         </tr>
+         </td>
+      </table>
+<p>Add or uncomment these lines:
+       <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> send host-name = gethostname();
+            </td>
+             </tr>
+
+            <tr style="padding-bottom: 0px">
+            <td bgcolor="#e3e3e3" > request subnet-mask, broadcast-address, time-offset, routers, <table align = "center" width = "90%"><tr><td bgcolor="#e3e3e3" style="padding-top: 0px">
+            domain-name, domain-name-servers, domain-search, host-name,</br>dhcp6.name-servers, dhcp6.domain-search, dhcp6.fqdn, dhcp6.sntp-servers, </br>netbios-name-servers, netbios-scope, interface-mtu,</br> rfc3442-classless-static-routes, ntp-servers;</td></tr></table>
+</td>
+</tr>
+</table>
+<table align = "center" width = "90%">
+      
+<tr>
+            <td bgcolor="#e3e3e3">prepend domain-name-servers 10.1.49.168;</td><td bgcolor="#e3e3e3">   # Server1's IP</td></tr>
+<tr>
+            <td bgcolor="#e3e3e3">
+timeout 300;</td><td bgcolor="#e3e3e3">             </td>
+            
+         </tr>
+         </td>
+      </table>
+      <p>Lastly, lets add the DHCP server. Much like the DNS, the DHCP (and tftp) can be activated and configured in sudo emacs /etc/dnsmasq.conf</p>
+
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo emacs /etc/dnsmasq.conf</td>
+
+         </tr>
+
+         </td>
+      </table>
+<p>Uncomment or dd the following lines</p>
+<table align = "center" width = "90%">
+      
+<tr>
+            <td bgcolor="#e3e3e3">interface=eno1</td><td bgcolor="#e3e3e3"># specifies a particular network interface</td></tr>
+
+<tr>
+            <td bgcolor="#e3e3e3">domain=example.org,10.1.49.0/24</td><td bgcolor="#e3e3e3"> # specifies a FQDN and an associated subnet</td> </tr>
+
+<tr>
+            <td bgcolor="#e3e3e3">dhcp-option=option:router,10.1.49.1</td><td bgcolor="#e3e3e3"># specifies a router</td></tr>
+
+<tr>
+            <td bgcolor="#e3e3e3">dhcp-option=option:ntp-server,128.138.140.44</td><td bgcolor="#e3e3e3"># specifies an ntp server</td></tr>
+
+
+<tr>
+            <td bgcolor="#e3e3e3">dhcp-range=10.1.49.170,10.1.49.220,255.255.255.0,12h</td><td bgcolor="#e3e3e3"># specifies address range, netmask, and lease time</td></tr>
+</table>
+  
+   <p>Check and make sure your syntax is correct</p>
+
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service dnsmasq start</td>
+         </tr>
+          <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service dnsmasq status</td>
+         </tr>
+      </table>
+      <blockquote> <b>OR</b> $ resmaq</blockquote>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://twitter.com/Danabyte">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/daniel-richards-70700983">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/danieldrichards">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Daniel Richards 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
