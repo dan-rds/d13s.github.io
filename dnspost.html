@@ -197,7 +197,7 @@ To install on Server1, run: </p>
          </td>
       </table>
 
- <h1>DHCP </h1>
+ <h3>DHCP </h3>
 
    <p>Next, Lets work on the DHCP. Lucky for us, DNSmasq has a built in DHCP service. All we need to do is activate it and configure the info sent to --and requested from-- the client. <b>The client configuration is on Server1</b> in /etc/dhcp/dhclient.conf  </p>
       <table align = "center" width = "90%" >
@@ -265,13 +265,132 @@ timeout 300;</td><td bgcolor="#e3e3e3">             </td>
 
 <table align = "center" width = "90%" >
          <tr>
-            <td bgcolor="#e3e3e3"> $ sudo service dnsmasq start</td>
+            <td bgcolor="#e3e3e3"> $ sudo service dnsmasq restart</td>
          </tr>
           <tr>
             <td bgcolor="#e3e3e3"> $ sudo service dnsmasq status</td>
          </tr>
       </table>
       <blockquote> <b>OR</b> $ resmaq</blockquote>
+<p>We are done with making a DNS and DHCP server.</p>
+
+<h3>Using the Server</h3>
+
+<p>Using our new server takes only a few steps.</p>
+<p><b>on the Client computer</b> we need to edit the network interfaces.</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo emacs /etc/network/interfaces</td>
+         </tr>
+         </table>
+<p>Your primary network interface should look something like this:</p>
+    <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">auto eno1</br>
+iface eno1 inet static
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">
+   address 10.1.49.171</br>
+   netmask 255.255.255.0</br>
+   broadcast 10.1.49.255</br>
+   gateway 10.1.49.1</br>
+   mtu 1500</br>
+   dns-nameservers 10.1.49.168</br>
+   dns-search example.org</br>
+   post-up ifconfig eno1 -multicast </br>
+            </td>
+         </tr>
+     </table>
+   </td>
+         </tr>
+     </table>
+<p>Altering the interface file for DHCP wont take long. However, it's easy to screw things up. I would recommed simply commenting out the unused lines. That way, if need be, you can undo any catastrophic alterations.</br>
+Because the network interfaces settings will be sent via the DHCP, we will not need any lines after the first two. Also, we must change the type from static to DHCP.</br>
+After the alterations, my primary interface looked like this:</p>
+
+ <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">auto eno1</br>
+iface eno1 inet DHCP
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">
+   # address 10.1.49.171</br>
+   # netmask 255.255.255.0</br>
+   # broadcast 10.1.49.255</br>
+   # gateway 10.1.49.1</br>
+   # mtu 1500</br>
+   # dns-nameservers 10.1.49.168</br>
+   # dns-search example.org</br>
+   # post-up ifconfig eno1 -multicast </br>
+            </td>
+         </tr>
+     </table>
+   </td>
+         </tr>
+     </table>
+<p> Let's give it a try. In order to force Client1 to get a new IP address, retart Client1's network and garentee it worked with </p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service networking restart</td>
+         </tr>
+          <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service networking status</td>
+         </tr>
+      </table>
+      <blockquote><b>Caution:</b>If you are doing this via ssh, this will kick you out and if you incorrectly configured anything, you might not be able to get back in</br><b>NOTE:</b> $ renet <div>is a faster way of doing this. If you ran my <a href="aliasPost.html">alias script.</a></div> </blockquote>
+<h3>Verifying It Worked</h3>
+<p>To check if it worked, we have two options:
+</p>
+<p><h5>1)</h5> <b>On the server </b>we can check the active leases with
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ tail -f /var/lib/misc/dnsmasq.leases</td>
+         </tr>
+      </table>
+      <blockquote>If you got my aliases <b> $ </b>leases</blockquote>
+<p><h5>2)</h5> <b>Or On the Client </b>we can check the Client's current IP. Which should have changed.
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ ifconfig </td>
+         </tr>
+      </table>
+<h3>Debugging</h3>
+<p>My first step in debugging anything like this is to check the system log</p>
+
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ tail -f /var/log/syslog </td>
+         </tr>
+         </table>
+          <blockquote>Or simply run the alias <b> $ </b>log </br>If youre like me and had to troubleshoot it a few times</blockquote>
+<p>If that didn't help, check over the files you configured to rule out small errors<br>Beyond that, check the 'Further Reading' section and if that doesn't help, <a href="contact.html">contact me</a>. </p>
+
+<h3>Further Reading</h3>
+
+<table text-align: center; border = ".5" width = "100%" >
+         
+         
+         <tr>
+            <td bgcolor="#e3e3e3"> Link to site </td><td bgcolor="#e3e3e3"> Uses</td>
+         </tr>
+         <tr>
+            <td> <a href="https://help.ubuntu.com/community/Dnsmasq">Ubuntu's guide</a> to dnsmasq</td><td > Useful but outdated and not very thorough </td>
+         </tr>
+         <tr text-align: center;>
+            <td> <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">Simon Kelley's dnsmasq site</a></td><td > Kelley made Dnsmasq probono in his spare time. If you like the software, please donate. <br>And did I mention it's open source! The repo is there too.</td>
+         </tr>
+      </table>
+<!-- Pager -->
+                <ul class="pager">
+                    <li class="next">
+                        <a href="netbootPost.html">Part 2: Network Boot &rarr;</a>
+                    </li>
+                </ul>
+            </div>
+        
+    
 
     <!-- Footer -->
     <footer>
