@@ -91,22 +91,156 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
 <head>
+<h2>Recap</h2>
+<p>In <a href="dnspost.html">this post</a>we created and configured the DNS and DHCP servers using DNSmasq. For a brief summary on how diskless boot works check out my post on <a href="dnspost.html">How Diskless Boot Works.</a> </p>
 
-
-
- </head>
-    
-
-    
-   
-
-
+<body>
+      <table text-align: center; border = ".5" width = "100%" >
+         <caption>IPs Used</caption>
          
+         <tr>
+            <td bgcolor="#e3e3e3"> Machine Name </td><td bgcolor="#e3e3e3"> IP</td>
+         </tr>
+         <tr>
+            <td> Server1</td><td > 10.1.49.168</td>
+         </tr>
+         <tr text-align: center;>
+            <td> Client1</td><td > 10.1.49.171 (until DHCP works, then it varies)</td>
+         </tr>
+      </table>
+   </body>
+<h2>Install</h2>
+<p>There are a few packages we need to install, on Ubuntu 16.04 </p>
+
+
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo apt-get install syslinux pxelinux nfs-kernel-server initramfs-tools</td>
+         </tr>
+          
+      </table>
+   <!--   <blockquote> <b>OR</b> $ resmaq</blockquote> -->
+<h2>Configure the Servers</h2>
+
+<p>To configure the server to give a bootfile to the client, edit the DNSmasq config file with
+
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo emacs /etc/dnsmasq.conf</td>
+
+         </tr>
+         </td>
+      </table>
+<p>Inside this file, edit these lines(around line 430) 
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> dhcp-option-force=208,f1:00:74:7e</td> <td bgcolor="#e3e3e3"> # optional, magic number for recognition</td>
+
+         </tr>
+          <tr>
+            <td bgcolor="#e3e3e3"> dhcp-option-force=209,/tftpboot/boot/isolinux</td><td bgcolor="#e3e3e3"> # force configuration file</td>
+
+         </tr>
+          <tr>
+            <td bgcolor="#e3e3e3"> dhcp-option-force=210,pxelinux.cfg/default</td><td bgcolor="#e3e3e3"> # path prefix</td>
+
+         </tr>
+          <tr>
+            <td bgcolor="#e3e3e3"> dhcp-boot=pxelinux.0</td><td bgcolor="#e3e3e3"> # boot file name</td>
+
+         </tr>
+         <tr>
+            <td bgcolor="#e3e3e3"> enable-tftp</td><td bgcolor="#e3e3e3"> </td>
+
+         </tr>
+         <tr>
+            <td bgcolor="#e3e3e3"> tftp-root=/tftpboot</td><td bgcolor="#e3e3e3"> # sets directory root for tftp files</td>
+
+         </tr>
       </table>
 
-                    
+ </head>   
+<p>Restart DHCP (and DNSmasq) with
 
-                   
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service networking restart</td>
+         </tr>
+          <tr>
+            <td bgcolor="#e3e3e3"> $ sudo service networking status</td>
+         </tr>
+      </table>
+      <blockquote><b>NOTE:</b> $ renet <div>is a faster way of doing this. If you ran my <a href="aliasPost.html">alias script.</a></div> </blockquote>
+      <h3>TFTP server</h3>
+      <p>Luckily, DNSmasq makes this part a cinch. In the previous step we enabled the TFTP server and set its root. Now we need to fill the TFTP's root.
+    <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo mkdir -p /tftpboot/pxelinux.cfg</td>
+
+         </tr>
+         </td>
+      </table>
+      <p>Now add the bootfile to the tftp</p>
+
+      <table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo cp /usr/lib/PXELINUX/pxelinux.0 /tftpboot</td>
+
+         </tr>
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo mkdir -p /tftpboot/boot</td>
+
+         </tr>
+         <tr>
+            <td bgcolor="#e3e3e3"> $ sudo cp -r /usr/lib/syslinux/modules/bios /tftpboot/boot/isolinux</td>
+
+         </tr>
+         </td>
+      </table>              
+
+    <p>Now we need to add the default to file to the TFTP server. Be careful where you put this. I put mine in  /tftpboot/pxelinux.cfg/default. Make sure you put your default file where are you specified in the DNSmasq configuration file (dhcp-option-force=209). Make a default configuration file called default. Inside that file put
+        <table align = "center" width = "95%" >
+         <tr>
+            <td bgcolor="#e3e3e3"> LABEL linux<br>
+    DEFAULT vmlinuz-<b>2.6.15-23-686</b> root=/dev/nfs initrd=initrd.img-<b>2.6.15-23-686</b> nfsroot=10.1.49.168:/nfsroot ip=dhcp rw </td>
+
+         </tr>
+         </td>
+      </table>
+<blockquote>To find your vlinuz, enter `uname -r` and replace bolded numbers  with the result.  <br><br>
+<b>NOTE:</b>If, when booting from the network, the client give the error 'NO DEFAULT CONFIGURATION FILE FOUND' you either put this file in the wrong directory or did not enter the proper data.</blockquote>
+
+<p>Then, to make sure other computers on the network can access the TFTP server, change the permissions with
+
+ <table align = "center" width = "95%" >
+         <tr>
+            <td bgcolor="#e3e3e3">$ sudo chmod -R 777 /tftpboot</td>
+            </tr>
+            </table>
+<p>Restart DNSmasq</p>
+<h3>Configure OS root</h3>
+<p>Make a directory to put the OS files that your NFS will offer to the client</p>
+<table align = "center" width = "90%" >
+         <tr>
+<td bgcolor="#e3e3e3">$ sudo mkdir /nfsroot</td>
+         </tr>
+         </table>
+<p>Now that we made a directory for the NFS, we need to configure our exports. Inside /etc/exports add the line
+
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">/nfsroot          </td>   <td bgcolor="#e3e3e3">         192.168.2.xxx(rw,no_root_squash,async,insecure)
+</td>
+</tr>
+</table>
+<p>Add our new export with
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">$ sudo exportfs -rv</td>
+            </tr>
+            </table>
+
+
                 </div>
             </div>
         </div>
