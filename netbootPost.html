@@ -92,7 +92,7 @@
 
 <head>
 <h2>Recap</h2>
-<p>In <a href="dnspost.html">this post</a>we created and configured the DNS and DHCP servers using DNSmasq. For a brief summary on how diskless boot works check out my post on <a href="dnspost.html">How Diskless Boot Works.</a> </p>
+<p>In <a href="dnspost.html">my previous post</a> we created and configured the DNS and DHCP servers using DNSmasq. For a brief summary on how diskless boot works check out my post on <a href="dnspost.html">How Diskless Boot Works.</a> </p>
 
 <body>
       <table text-align: center; border = ".5" width = "100%" >
@@ -233,13 +233,98 @@
 </td>
 </tr>
 </table>
-<p>Add our new export with
+<p>Add our new export with</p>
 <table align = "center" width = "90%" >
          <tr>
             <td bgcolor="#e3e3e3">$ sudo exportfs -rv</td>
             </tr>
             </table>
+<h3>Filling our NFS</h3>
+<p>The next step is to mount the contents of Client1 onto the NFS. Before we do that make sure Client1 is up-to-date and configured correctly because Client1's image will be propagated to the rest of the network. Install and update all the packages you want on all the machines.</p>
+<p>After that, we need to get the current Kernel in the home directory <b> of the Client computer</b>. Use the command 'uname -r' Which will give you your current Kernel version.</p>
 
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">$ sudo cp /boot/vmlinuz-`uname -r` ~</td>
+            </tr>
+            </table>
+            <p>
+<h4>CAUTION: This next step will make Client1 unable to boot. After we copy over everything from Client1 to Server1/nfsroot/ we can change it back but if Client reboots, you will need to reimage Client1.</h4></p>
+ 
+<p>Change the boot settings in /etc/initramfs-tools/initramfs.conf to the following. if this setting is not present, just add a new line</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">BOOT=nfs</td>
+            </tr>
+            </table>
+<p>and</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">MODULES=netboot</td>
+            </tr>
+            </table>
+
+<p>Once you have changed the boot settings, run kminitramfs with</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">$ mkinitramfs -o ~/initrd.img-`uname -r`</td>
+            </tr>
+            </table>
+<p>Now we need to copy the contents of client on to the NFS server. Be very careful what you were copying and where. These commands may take a few minutes</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">
+            $ mount -t nfs -onolock 10,1,49.168:/nfsroot /mnt<br>
+$ cp -ax /. /mnt/.<br>
+$ cp -ax /dev/. /mnt/dev/.
+</td>
+</tr>
+</table>
+<h4>Before you forget, change the settings in /etc/initramfs-tools/initramfs.conf back to what they were. That way Client1 can remain bootable.</h4>
+<p><b>From the Server</b> copy the initrd and kernel to the NFS</p>
+<table align = "center" width = "90%" >
+         <tr>
+            <td bgcolor="#e3e3e3">$ sudo cp ~/vmlinuz-`uname -r` /tftpboot/<br>
+$ sudo cp ~/initrd.img-`uname -r` /tftpboot/</td>
+            </tr>
+            </table>
+<p>Our last step is to edit Client1's interface file. Because, the DHCP request is made inside the Pre-execution Environment(PXE) before Client1 even makes it to the OS. Inside /etc/network/interfaces change Client1's primary network interface to 'manual' not DHCP or static i.e.</p>
+<table align = "center" width = "90%" >
+         <tr>
+<td bgcolor="#e3e3e3">#auto eth0<br>
+#iface eth0 inet dhcp<br>
+iface eth0 inet manual</td>
+         </tr>
+         </table>
+<p>Our very last step is to add our nameservers /etc/resolvconf/resolv.conf.d/base so that Client1 uses the correct DNS after booting. Inside /etc/resolvconf/resolv.conf.d/base put
+<table align = "center" width = "90%" >
+         <tr>
+<td bgcolor="#e3e3e3">nameserver 10.1.49.168</td><td bgcolor="#e3e3e3"># Server1(the DNS)'s IP 
+         </tr>
+         </table>
+
+<h3>And we are done!</h3>
+
+<p>To use the server, plug any computer including Client1 into the network and enter the set up mode when booting. Edit the boot device priority to include network boot. Restart and watch it work(hopefully).</p>
+
+<h3>Debugging</h3>
+<p>Unless you're some type of network boot genius, this probably won't work perfectly on the first try. Luckily, there should be a checklist of what the computer is doing displayed on the screen so you should be able to figure out where it's stopping. Also, Server1's system logs should reveal a lot of information about what the server is sending(or failing to send) to the Client. Server1's syslog should come in handy.
+
+Good Luck!</p>
+<h3>Further Reading</h3>
+<table text-align: center; border = ".5" width = "100%" >
+         
+         
+         <tr>
+            <td bgcolor="#e3e3e3"> Link to site </td><td bgcolor="#e3e3e3"> Uses</td>
+         </tr>
+         <tr>
+            <td> <a href="https://help.ubuntu.com/community/Dnsmasq">Ubuntu's guide</a> to diskless network boot</td><td >Useful for network boot stuff but it uses isc-DHCP and DNS instead of DNSmasq </td>
+         </tr>
+         <tr text-align: center;>
+            <td> <a href="http://shitwefoundout.com/wiki/Diskless_ubuntu">SWFO's diskless wiki</a></td><td > Great for info on the config files, especially the default. </td>
+         </tr>
+      </table>
 
                 </div>
             </div>
