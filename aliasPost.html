@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Network Boot</title>
+    <title>Aliases</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html">Daniel Richards</a>
+                <a class="navbar-brand" href="index.html">Codebase</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>ALIASES</h1>
+                        <h1>ALIASES FOR NETWORK BOOTERS</h1>
                         <h2 class="subheading"> </h2>
                         <span class="meta">Posted by <a href="about.html">Daniel Richards</a> on August 8, 2017</span>
                     </div>
@@ -90,8 +90,25 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
 <head>
-<h1>UNDER CONSTRUCTION</h1>
+<h1></h1>
+<p>I made a simple bash script that adds useful aliases if you are using dnsmasq and emacs. On any ubuntu machine, simply download or clone this repo:</p>
+<blockquote>https://github.com/danieldrichards/linuxAliases.git</blockquote>
+<p>After that, run the script. This will add th folowing aliases:</p>
 
+<p> netin = sudo emacs /etc/network/interfaces<br>
+
+ leases = tail -f /var/lib/misc/dnsmasq.leases<br>
+
+ log = tail -f /var/log/syslog<br>
+
+ renet = sudo service networking restart; sudo service networking status<br>
+
+ hgrep = history | grep "$@"’<br>
+
+ remasq = sudo service dnsmasq restart; service dnsmasq status<br>
+</p>
+
+<p>These will come in handy when configuring and debugging your DNS, DHCP, and TFTP servers.</p>
 
  </head>
     
