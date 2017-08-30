@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DNS/DHCP</title>
+    <title>How Network Boot Works</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -88,12 +88,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <p>When I began my Netboot Project, I had no clue about DNS, DHCP, TFTP, NFS, Diskless or PXE boot. So let me give you the primer I wish I had. </p>
+
+    <h4>Why Diskless Network Boot?</h4>
+    <p>In network and system management, there are three large objectives that network boot helps attain. </p>
+    <p><h5>1) </h5>In the abstract, individual computers should be the same. The admin(presumably you) shouldn’t think about the computers as different, separate machines. Ideally, every computer should be interchangeable. For instance, if a computer goes down, the admin should be able to easily configure a new machine to take its place.</p>
+    <p><h5>2) </h5>Speed. new computers, or newly rebooted computers should come online as fast as possible. For obvious reasons. You might think 'Isn't it faster to boot from disk as opposed to getting the Kernel and OS from the network and writing it?' However, because we will be writing to RAM, it's faster in the end. (exept in the case of LOTS of computers coming online at once) </p>
+    <p><h5>3) </h5>Scalability. New computers should be easy to add to the current system including the software needed for operation.</p>
+    <h4>Structure</h4>
+
+    <p>Network boot helps solve these issues in a few ways. In a typical network, Each computer has its OS written to its hard drive and uses the network only after it has booted like so:</p>
+
 <img src="Network.png" alt="some_text" style="width:400px;height:350px;">
-<p><br><br><br></p>
+
+<p><br><br>Alternatively, Network Boot does something different. This is where the 'Diskless" part comes in. When we network boot, the client's root directory is mounted to the server via a Network File System(NFS) like this:<br> <br></p>
+
+
 <img src="netboot.png" alt="some_text" style="width:400px;height:350px;">
 <head>
+<br>
+<br>
+<h4>Order of Operations</h4>
+<p>How does this all get done without a Kernel and OS? Lets go through it step by step.</p>
+    <p><h5>First, </h5>Just like any DHCP request, the BIOS broadcasts a request to the network. If the request is granted, it's on to the second step. If not, the BIOS tries any other 'boot device' i.e. other interfaces.</p>
+    <p><h5>Second, </h5> Once the client has an IP address, It requests a default configuration file and a KERNEL via the TFTP. Once the Kernel installed, configured and working, the client is ready to receive the main OS files. </p>
+    <p><h5>Third, </h5>Now the Kernel can transfer files and use the RAM as a hard disk. </p>
+    <p><h5>Fourth, </h5>Once the client has all the files it needs, the client boots onto its RAM with the NFS as its ~/root </p>
 
+    <p>Then,[theoretically] we are running on the RAM and mounted to the NFS.</p>
 </head>
+
 
 
 <p><br><br><br></p>

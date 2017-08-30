@@ -139,7 +139,7 @@ To install on Server1, run: </p>
          </td>
       </table>
       <h3>Configuring DNSmasq</h3>
-      <p> All the configruation is done inside /etc/dnsmasq.conf. Over the course of this project, there were a few seperate occations where I would come across a problem, scratch my head for awhile, only to find a line in the config file that solved it instantly.
+      <p> All the configuration is done inside /etc/dnsmasq.conf. Over the course of this project, there were a few separate occasions where I would come across a problem, scratch my head for awhile, only to find a line in the config file that solved it instantly.
       
       <blockquote>
        For instance, I was getting an unknown machine with no name getting and releasing leases every five seconds! I wasted HOURS looking for a solution Only to find the line:
@@ -305,7 +305,7 @@ iface eno1 inet static
    </td>
          </tr>
      </table>
-<p>Altering the interface file for DHCP wont take long. However, it's easy to screw things up. I would recommed simply commenting out the unused lines. That way, if need be, you can undo any catastrophic alterations.</br>
+<p>Altering the interface file for DHCP wont take long. However, it's easy to screw things up. I would recommend simply commenting out the unused lines. That way, if need be, you can undo any catastrophic alterations.</br>
 Because the network interfaces settings will be sent via the DHCP, we will not need any lines after the first two. Also, we must change the type from static to DHCP.</br>
 After the alterations, my primary interface looked like this:</p>
 
@@ -330,7 +330,7 @@ iface eno1 inet DHCP
    </td>
          </tr>
      </table>
-<p> Let's give it a try. In order to force Client1 to get a new IP address, retart Client1's network and garentee it worked with </p>
+<p> Let's give it a try. In order to force Client1 to get a new IP address, retart Client1's network and guarantee it worked with </p>
 <table align = "center" width = "90%" >
          <tr>
             <td bgcolor="#e3e3e3"> $ sudo service networking restart</td>
@@ -364,7 +364,7 @@ iface eno1 inet DHCP
             <td bgcolor="#e3e3e3"> $ tail -f /var/log/syslog </td>
          </tr>
          </table>
-          <blockquote>Or simply run the alias <b> $ </b>log </br>If youre like me and had to troubleshoot it a few times</blockquote>
+          <blockquote>Or simply run the alias <b> $ </b>log </br>If you're like me and had to troubleshoot it a few times</blockquote>
 <p>If that didn't help, check over the files you configured to rule out small errors<br>Beyond that, check the 'Further Reading' section and if that doesn't help, <a href="contact.html">contact me</a>. </p>
 
 <h3>Further Reading</h3>
