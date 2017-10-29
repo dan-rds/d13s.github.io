@@ -1,6 +1,6 @@
 
 var cols, rows;
-var w = 30;
+var w = 20;
 var grid = [];
 var current;
 var stack = [];
@@ -32,6 +32,7 @@ function setup(){
 }
 
 function draw(){
+  frameRate(15);
   background(51);
   for( var i = 0; i < grid.length; i++) 
   {
