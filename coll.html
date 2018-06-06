@@ -419,7 +419,7 @@ function expand_mainline(d) {
     d.children = d._children
     d.children.forEach(expand_mainline)
     d._children = null
-    //update(d);
+    update(d);
   }
 }
 
