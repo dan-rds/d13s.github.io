@@ -3,14 +3,22 @@
   "name": "Top Level",
   "parent": "null",
   "children": [
-    {
-      "name": "Level 2: A",
-      "parent": "Top Level",
-      "children": [
-        {
-          "name": "Son of A",
-          "parent": "Level 2: A"
-        },
+      {
+         "type": "GeForce GTX TITAN X",
+         "serial": 36946846478
+      },
+      {
+         "memory": "12207 MiB"
+      },
+      {
+         "graphics clock": "1392 MHz"
+      },
+      {
+         "sm clock": "1392 MHz"
+      },
+      {
+         "memory clock": "3505 MHz"
+      },
         {
           "name": "Daughter of A",
           "parent": "Level 2: A"
