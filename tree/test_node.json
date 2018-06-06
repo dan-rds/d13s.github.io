@@ -1,4 +1,5 @@
-{
+[
+   {
    "device": {
       "hostname": "blc00",
       "observatory": "Green Bank",
@@ -432,3 +433,4 @@
       }
    ]
 }
+]
