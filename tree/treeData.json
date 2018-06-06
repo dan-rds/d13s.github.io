@@ -1,7 +1,7 @@
 [
   {
     "name": "gpu",
-    "parent": "Top Level",
+    "parent": "null",
     "children": [
       {
         "name":"memory",
