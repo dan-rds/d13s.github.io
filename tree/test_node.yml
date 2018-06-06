@@ -1,0 +1,333 @@
+
+cpu:
+  -number:  0 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  1 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  2 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  3 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  4 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  5 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  6 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  7 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  8 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  9 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  10 
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz 
+    cores:  6 
+    hyperthreading: False
+  -number:  11
+    type:  Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz
+    cores:  6
+    hyperthreading: False
+memory:
+ -total: 65867508 kB
+ -Handle: 0x0024
+ Array Handle: 0x0023
+ Error Information Handle: Not Provided
+ Total Width: 72 bits
+ Data Width: 64 bits
+ Size: 8192 MB
+ Form Factor: DIMM
+ Set: None
+ Locator: P1-DIMMA1
+ Bank Locator: P0_Node0_Channel0_Dimm0
+ Type: Other
+ Type Detail: Synchronous
+ Speed: 2133 MHz
+ Manufacturer: Samsung (date:15/31)
+ Serial Number: 40EA035A
+ Asset Tag: P1-DIMMA1_AssetTag
+ Part Number: M393A1G40DB0-CPB   
+ Rank: 1
+ Configured Clock Speed: 1866 MHz
+ -Handle: 0x0027
+ Array Handle: 0x0023
+ Error Information Handle: Not Provided
+ Total Width: 72 bits
+ Data Width: 64 bits
+ Size: 8192 MB
+ Form Factor: DIMM
+ Set: None
+ Locator: P1-DIMMB1
+ Bank Locator: P0_Node0_Channel1_Dimm0
+ Type: Other
+ Type Detail: Synchronous
+ Speed: 2133 MHz
+ Manufacturer: Samsung (date:15/31)
+ Serial Number: 40EA03F3
+ Asset Tag: P1-DIMMB1_AssetTag
+ Part Number: M393A1G40DB0-CPB   
+ Rank: 1
+ Configured Clock Speed: 1866 MHz
+ -Handle: 0x002A
+ Array Handle: 0x0023
+ Error Information Handle: Not Provided
+ Total Width: 72 bits
+ Data Width: 64 bits
+ Size: 8192 MB
+ Form Factor: DIMM
+ Set: None
+ Locator: P1-DIMMC1
+ Bank Locator: P0_Node0_Channel2_Dimm0
+ Type: Other
+ Type Detail: Synchronous
+ Speed: 2133 MHz
+ Manufacturer: Samsung (date:15/31)
+ Serial Number: 40EA0399
+ Asset Tag: P1-DIMMC1_AssetTag
+ Part Number: M393A1G40DB0-CPB   
+ Rank: 1
+ Configured Clock Speed: 1866 MHz
+ -Handle: 0x002D
+ Array Handle: 0x0023
+ Error Information Handle: Not Provided
+ Total Width: 72 bits
+ Data Width: 64 bits
+ Size: 8192 MB
+ Form Factor: DIMM
+ Set: None
+ Locator: P1-DIMMD1
+ Bank Locator: P0_Node0_Channel3_Dimm0
+ Type: Other
+ Type Detail: Synchronous
+ Speed: 2133 MHz
+ Manufacturer: Samsung (date:15/31)
+ Serial Number: 40EA0382
+ Asset Tag: P1-DIMMD1_AssetTag
+ Part Number: M393A1G40DB0-CPB   
+ Rank: 1
+ Configured Clock Speed: 1866 MHz
+ -Handle: 0x0031
+ Array Handle: 0x0030
+ Error Information Handle: Not Provided
+ Total Width: 72 bits
+ Data Width: 64 bits
+ Size: 8192 MB
+ Form Factor: DIMM
+ Set: None
+ Locator: P2-DIMME1
+ Bank Locator: P1_Node1_Channel0_Dimm0
+ Type: Other
+ Type Detail: Synchronous
+ Speed: 2133 MHz
+ Manufacturer: Samsung (date:15/31)
+ Serial Number: 40EA032D
+ Asset Tag: P2-DIMME1_AssetTag
+ Part Number: M393A1G40DB0-CPB   
+ Rank: 1
+ Configured Clock Speed: 1866 MHz
+ -Handle: 0x0034
+ Array Handle: 0x0030
+ Error Information Handle: Not Provided
+ Total Width: 72 bits
+ Data Width: 64 bits
+ Size: 8192 MB
+ Form Factor: DIMM
+ Set: None
+ Locator: P2-DIMMF1
+ Bank Locator: P1_Node1_Channel1_Dimm0
+ Type: Other
+ Type Detail: Synchronous
+ Speed: 2133 MHz
+ Manufacturer: Samsung (date:15/31)
+ Serial Number: 40EA0384
+ Asset Tag: P2-DIMMF1_AssetTag
+ Part Number: M393A1G40DB0-CPB   
+ Rank: 1
+ Configured Clock Speed: 1866 MHz
+ -Handle: 0x0037
+ Array Handle: 0x0030
+ Error Information Handle: Not Provided
+ Total Width: 72 bits
+ Data Width: 64 bits
+ Size: 8192 MB
+ Form Factor: DIMM
+ Set: None
+ Locator: P2-DIMMG1
+ Bank Locator: P1_Node1_Channel2_Dimm0
+ Type: Other
+ Type Detail: Synchronous
+ Speed: 2133 MHz
+ Manufacturer: Samsung (date:15/31)
+ Serial Number: 40EA03E4
+ Asset Tag: P2-DIMMG1_AssetTag
+ Part Number: M393A1G40DB0-CPB   
+ Rank: 1
+ Configured Clock Speed: 1866 MHz
+ -Handle: 0x003A
+ Array Handle: 0x0030
+ Error Information Handle: Not Provided
+ Total Width: 72 bits
+ Data Width: 64 bits
+ Size: 8192 MB
+ Form Factor: DIMM
+ Set: None
+ Locator: P2-DIMMH1
+ Bank Locator: P1_Node1_Channel3_Dimm0
+ Type: Other
+ Type Detail: Synchronous
+ Speed: 2133 MHz
+ Manufacturer: Samsung (date:15/31)
+ Serial Number: 40EA035C
+ Asset Tag: P2-DIMMH1_AssetTag
+ Part Number: M393A1G40DB0-CPB   
+ Rank: 1
+ Configured Clock Speed: 1866 MHz
+gpu:
+ -type: GeForce GTX TITAN X
+ serial: 0423215021416
+ memory: 12207 MiB
+ graphics clock: 1392 MHz
+ sm clock: 1392 MHz
+ memory clock: 3505 MHz
+
+disks:
+ -megaraid: 10
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J1K5BPF57D
+ firmware: FP2A
+ -megaraid: 11
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J5K320F57D
+ firmware: FP2A
+ -megaraid: 12
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85KGK6YQF57D
+ firmware: FP2A
+ -megaraid: 13
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85M8K4D0F57D
+ firmware: FP2A
+ -megaraid: 14
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85A4K6KTF57D
+ firmware: FP2A
+ -megaraid: 15
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J2KD5SF57D
+ firmware: FP2A
+ -megaraid: 16
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85L8K48WF57D
+ firmware: FP2A
+ -megaraid: 17
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85I3KBVXF57D
+ firmware: FP2A
+ -megaraid: 18
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85KAK4IVF57D
+ firmware: FP2A
+ -megaraid: 19
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J7K66EF57D
+ firmware: FP2A
+ -megaraid: 20
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 8581K4E4F57D
+ firmware: FP2A
+ -megaraid: 21
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85I3KBVTF57D
+ firmware: FP2A
+ -megaraid: 22
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J2KD5VF57D
+ firmware: FP2A
+ -megaraid: 23
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J3KBXWF57D
+ firmware: FP2A
+ -megaraid: 24
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J2KD4RF57D
+ firmware: FP2A
+ -megaraid: 25
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85K2KD7LF57D
+ firmware: FP2A
+ -megaraid: 26
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85MAK4QCF57D
+ firmware: FP2A
+ -megaraid: 27
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J3KBY7F57D
+ firmware: FP2A
+ -megaraid: 28
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85K3KBZ0F57D
+ firmware: FP2A
+ -megaraid: 29
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85I9K5BCF57D
+ firmware: FP2A
+ -megaraid: 30
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J2KD6KF57D
+ firmware: FP2A
+ -megaraid: 31
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 7595K2GAF57D
+ firmware: FP2A
+ -megaraid: 32
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85J2KD5QF57D
+ firmware: FP2A
+ -megaraid: 33
+ device: TOSHIBA HDWE150
+ capacity: 5,000,981,078,016 bytes [5.00 TB]
+ serial: 85A9K4ZJF57D
+ firmware: FP2A
