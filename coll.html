@@ -402,7 +402,7 @@ root.y0 = 0;
 
 // Collapse after the second level
 //root.children.forEach(collapse);
-
+root.children.forEach(expand_mainline);
 update(root);
 
 // Collapse the node and all it's children
@@ -411,6 +411,14 @@ function collapse(d) {
     d._children = d.children
     d._children.forEach(collapse)
     d.children = null
+  }
+}
+
+function expand_mainline(d) {
+  if(d.children) {
+    d.children = d._children
+    d.children = null
+    update(d);
   }
 }
 
