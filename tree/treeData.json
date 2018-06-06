@@ -1,48 +1,30 @@
 [
   {
-  "name": "Top Level",
-  "parent": "null",
-  "children": [
-    {
-      "name": "Level 2: A",
-      "parent": "Top Level",
-      "children": [
-        {
-          "name": "Son of A",
-          "parent": "Level 2: A"
-        },
-        {
-          "name": "Daughter of A",
-          "parent": "Level 2: A"
-        },
-        {
-          "name": "gpu",
-          "parent": "Top Level",
-          "children": [
-            {
-              "name":"memory",
-              "memory": "12207 MiB",
-              "parent": "gpu"
-            },
-            {
-              "name": "clock",
-               "graphics clock": "1392 MHz",
-               "parent": "gpu"
-            },
-            {
-              "name": "smclock",
-               "sm clock": "1392 MHz",
-               "parent": "gpu"
-            },
-            { 
-              "name": "memory clock",
-               "memory clock": "3505 MHz",
-               "parent": "gpu"
-          }
+    "name": "gpu",
+    "parent": "Top Level",
+    "children": [
+      {
+        "name":"memory",
+        "memory": "12207 MiB",
+        "parent": "gpu"
+      },
+      {
+        "name": "clock",
+         "graphics clock": "1392 MHz",
+         "parent": "gpu"
+      },
+      {
+        "name": "smclock",
+         "sm clock": "1392 MHz",
+         "parent": "gpu"
+      },
+      { 
+        "name": "memory clock",
+         "memory clock": "3505 MHz",
+         "parent": "gpu"
+      }
         ],
       },
   
   
-] } ]
-}
-]
+] 
