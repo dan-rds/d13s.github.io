@@ -419,7 +419,7 @@ function collapse(d) {
 function expand_mainline(d) {
   if(d.children) {
     d.children = d._children
-    d.children.forEach(expand_mainline)
+    //d.children.forEach(expand_mainline)
     d._children = null
     update(d);
   }
