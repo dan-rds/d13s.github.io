@@ -52,7 +52,7 @@ var svg = d3.select("body").append("svg")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // load the external data
-d3.json("treeData.json", function(error, treeData) {
+d3.json("test_node.json", function(error, treeData) {
   root = treeData[0];
   update(root);
 });
