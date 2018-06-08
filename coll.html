@@ -3,6 +3,7 @@
 <meta charset="UTF-8">
 <style>
 
+
 .node circle {
   fill: #fff;
 /*   stroke: steelblue; */
@@ -19,27 +20,100 @@
 /*   stroke-width: 2px; */
 }
 
+/*
+.sidenav {
+
+    width: 33%; 
+    position: fixed; 
+    z-index: 1;
+    top: 0; 
+    right: 0;
+    background-color: #e0e0e0;  Black 
+    overflow-x: hidden; 
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+
+.sidenav a {
+    padding: 6px 18px 6px 16px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+*/
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Style page content */
+.main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
 </style>
 
+
+<div id="myDIV">
+  This is my DIV element.
+</div>
 <body>
+
+<!-- /*
+<div class="sidenav">
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div> -->
 
 <!-- load the d3.js library -->	
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
 <script>
 
+var side = "eibirbgiurbierbirebgigbreigbreiugberiguberigberigber"
+var side2 = "erojnr"
+
+function myFunction(d) {
+  var x = document.getElementById("myDIV");
+  if (d.state != 0) {
+    console.log("1"),
+    x.innerHTML = d.data.name,
+    d.state = 1;
+  } else {
+    console.log("0"),
+    x.innerHTML = " ",
+    d.state = 0;
+  }
+}
+
 var treeData =
   {
   "name": "Root_Level",
-  "value": 75,
+  "value": 40, 
+     "state": 0, 
+    "col":1,
   "type": "black",
-  "level": "red",
+  "level": "black",
   "male": 51,
   "female": 24,
   "children":[
 {
     "name": "Operation",
-    "value": 40,
+    "value": 40, 
+     "state": 0, 
+    "col":1,
     "type": "black",
     "level": "green",
     "male": 23,
@@ -47,41 +121,51 @@ var treeData =
     "children": [
       {
         "name": "Top Management",
-        "value": 3,
+        "value": 40, 
+     "state": 0, 
+    "col":1,
         "type": "grey",
-        "level": "red",
-        "male": 3,
-        "female": 0,
+        "level": "black",
+        "male": 0,
+        "female": 30,
         "children": [
           {
             "name": "Operation Manager",
-            "value": 100,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
             "level": "orange",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Account Strategist",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Product Management Executive",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           }
         ]
       },
       {
         "name": "Junior Level",
-        "value": 23,
+        "value": 40, 
+     "state": 0, 
+    "col":1,
         "type": "grey",
         "level": "green",
         "male": 10,
@@ -89,49 +173,61 @@ var treeData =
         "children": [
           {
             "name": "Analyst",
-            "value": 10,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
             "level": "orange",
-            "male": 7,
-            "female": 3
+            "male": 1,
+            "female": 1
           },
           {
             "name": "Intern",
-            "value": 5,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
-            "level": "red",
-            "male": 0,
-            "female": 5
+            "level": "black",
+            "male": 1,
+            "female": 1
           },
           {
             "name": "Research Associate",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
-            "level": "red",
-            "male": 0,
+            "level": "black",
+            "male": 1,
             "female": 1
           },
           {
             "name": "Search Marketing Analyst",
-            "value": 1,
-            "type": "steelblue",
-            "level": "red",
+            "value": 40, 
+     "state": 0, 
+    "col":1,
+            "type": "black",
+            "level": "green",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Search Marketing Associate",
-            "value": 6,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
-            "level": "red",
-            "male": 2,
-            "female": 4
+            "level": "black",
+            "male": 1,
+            "female": 1
           }
         ]
       },
       {
         "name": "Middle Management",
-        "value": 14,
+        "value": 40, 
+     "state": 0, 
+    "col":1,
         "type": "grey",
         "level": "green",
         "male": 10,
@@ -139,27 +235,33 @@ var treeData =
         "children": [
           {
             "name": "Account Manager",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
             "level": "orange",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Account Planner",
-            "value": 8,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
-            "level": "red",
-            "male": 6,
-            "female": 2
+            "level": "black",
+            "male": 1,
+            "female": 1
           },
           {
             "name": "Senior Analyst",
-            "value": 5,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "steelblue",
-            "level": "red",
-            "male": 3,
-            "female": 2
+            "level": "black",
+            "male": 1,
+            "female": 1
           }
         ]
       }
@@ -167,143 +269,177 @@ var treeData =
   },
   {
     "name": "Technology",
-    "value": 32,
+    "value": 40, 
+     "state": 0, 
+    "col":1,
     "type": "black",
-    "level": "red",
+    "level": "black",
     "male": 26,
     "female": 6,
     "children":[
       {
         "name": "Top Management",
-        "value": 6,
+        "value": 40, 
+     "state": 0, 
+    "col":1,
         "type": "grey",
-        "level": "red",
+        "level": "black",
         "male": 6,
         "female": 0,
         "children": [
           {
             "name": "Engineering Manager",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Product Manager",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Associate Product Lead",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
-            "male": 2,
-            "female": 0
+            "level": "black",
+            "male": 1,
+            "female": 1
           },
           {
             "name": "Associate Architect",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Principal Consultant",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           }
         ]
       },
       {
         "name": "Junior Level",
-        "value": 21,
+        "value": 40, 
+     "state": 0, 
+    "col":1,
         "type": "grey",
-        "level": "red",
+        "level": "black",
         "male": 16,
         "female": 5,
         "children":[
           {
             "name": "System Administrator",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Support Engineer",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Software Enginner",
-            "value": 6,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
-            "male": 6,
-            "female": 0
+            "level": "black",
+            "male": 1,
+            "female": 1
           },
           {
             "name": "Associate Software Enginner",
-            "value": 13,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
-            "male": 8,
-            "female": 5
+            "level": "black",
+            "male": 1,
+            "female": 1
           },
         ]
       },
       {
         "name": "Middle Management",
-        "value": 6,
+        "value": 40, 
+     "state": 0, 
+    "col":1,
         "type": "grey",
-        "level": "red",
+        "level": "black",
         "male": 4,
         "female": 1,
         "children":[
           {
             "name": "Database Administrator",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
-            "male": 0,
+            "level": "black",
+            "male": 1,
             "female": 1
           },
           {
             "name": "Quality Assurance Lead",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "Senior Software Engineer",
-            "value": 2,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
-            "male": 2,
-            "female": 0
+            "level": "black",
+            "male": 1,
+            "female": 1
           },
           {
             "name": "UX Designer",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "grey",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
         ]
       }
@@ -311,52 +447,64 @@ var treeData =
   },
   {
     "name": "HR & Admin",
-    "value": 3,
+    "value": 40, 
+     "state": 0, 
+    "col":1,
     "type": "black",
-    "level": "red",
+    "level": "black",
     "male": 2,
     "female": 1,
     "children":[
       {
         "name": "Top Management",
-        "value": 2,
+        "value": 40, 
+     "state": 0, 
+    "col":1,
         "type": "black",
-        "level": "red",
+        "level": "black",
         "male": 2,
         "female": 0,
         "children":[
           {
             "name": "Director",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "black",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           },
           {
             "name": "HR Manager",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "black",
-            "level": "red",
+            "level": "black",
             "male": 1,
-            "female": 0
+            "female": 1
           }
         ]
       },
       {
         "name": "Middle Management",
-        "value": 1,
+        "value": 40, 
+     "state": 0, 
+    "col":1,
         "type": "black",
-        "level": "red",
+        "level": "black",
         "male": 0,
         "female": 1,
         "children":[
           {
             "name": "Front Office Executive",
-            "value": 1,
+            "value": 40, 
+     "state": 0, 
+    "col":1,
             "type": "black",
-            "level": "red",
-            "male": 0,
+            "level": "black",
+            "male": 10,
             "female": 1
           }
         ]
@@ -369,7 +517,7 @@ var treeData =
 // Set the dimensions and margins of the diagram
 var margin = {top: 20, right: 90, bottom: 30, left: 90},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 900 - margin.top - margin.bottom;
 
 var colorScale = d3.scaleLinear()
     .domain([0, 1])
@@ -389,7 +537,7 @@ var svg = d3.select("body").append("svg")
           + margin.left + "," + margin.top + ")");
 
 var i = 0,
-    duration = 750,
+    duration = 500,
     root;
 
 // declares a tree layout and assigns the size
@@ -403,6 +551,7 @@ root.y0 = 0;
 // Collapse after the second level
 //root.children.forEach(collapse);
 root.children.forEach(expand_mainline);
+console.log(root.node);
 update(root);
 
 // Collapse the node and all it's children
@@ -417,12 +566,13 @@ function collapse(d) {
 
 //function exexpand_mainline(d){}
 function expand_mainline(d) {
-  if(d.children) {
+  if(d._children) {
+    console.log("Hello world!")
     d.children = d._children
-    //d.children.forEach(expand_mainline)
-   
-    update(d);
-     d._children = null
+    d.children.forEach(expand_mainline)
+    d._children = null
+    //update(d);
+     //
   }
 }
 
@@ -457,21 +607,21 @@ function update(source) {
       .attr('class', 'node')
       .attr('r', 1e-6)
       .style("fill", function(d) {
-          return d._children ? "lightsteelblue" : "#fff";
+          return (d.col != 1) ? "lightsteelblue" : "#33FF3C";
       })
-  		.style("stroke", function(d){return colorScale(d.data.female/(d.data.female + d.data.male))});
+  		.style("stroke", function(d){return colorScale(d.col)});
 
   // Add labels for the nodes
   nodeEnter.append('text')
       .attr("dy", ".35em")
       .attr("x", function(d) {
-          return d.children || d._children ? -13 : 13;
+          return d.children || d._children ? -20 : 20;
       })
       .attr("text-anchor", function(d) {
           return d.children || d._children ? "end" : "start";
       })
       .text(function(d) { return d.data.name; })
-  		.style("fill", function(d){return colorScale(d.data.female/(d.data.value))});
+  		.style("fill", function(d){return colorScale(d.col)});
 
   // UPDATE
   var nodeUpdate = nodeEnter.merge(node);
@@ -485,9 +635,9 @@ function update(source) {
 
   // Update the node attributes and style
   nodeUpdate.select('circle.node')
-    .attr('r', 10)
+    .attr('r', 15)
     .style("fill", function(d) {
-        return d._children ? "lightsteelblue" : "#fff";
+        return (d.col != 1) ? "lightsteelblue" : "#33FF3C";
     })
     .attr('cursor', 'pointer');
 
@@ -502,11 +652,11 @@ function update(source) {
 
   // On exit reduce the node circles size to 0
   nodeExit.select('circle')
-    .attr('r', 1e-6);
+    .attr('r', 1e-11);
 
   // On exit reduce the opacity of text labels
   nodeExit.select('text')
-    .style('fill-opacity', 1e-6);
+    .style('fill-opacity', 1e-11);
 
   // ****************** links section ***************************
 
@@ -567,6 +717,8 @@ function update(source) {
 
   // Toggle children on click.
   function click(d) {
+    console.log(d.data.name)
+    myFunction(d)
     if (d.children) {
         d._children = d.children;
         d.children = null;
@@ -577,6 +729,42 @@ function update(source) {
     update(d);
   }
 }
+var chart2 = d3.select("body")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+// Get the data
+d3.csv("data2.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.close = +d.close;
+  });
+
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain([0, d3.max(data, function(d) { return d.close; })]);
+
+  // Add the valueline path.
+  chart2.append("path")
+    .attr("class", "line")
+    .attr("d", valueline(data));
+
+  // Add the X Axis
+  chart2.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+  // Add the Y Axis
+  chart2.append("g")
+    .attr("class", "y axis")
+    .call(yAxis);
+
+});
+
 
 </script>
 </body>
