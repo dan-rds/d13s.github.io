@@ -1,76 +1,380 @@
+
 <!DOCTYPE html>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <style>
 
+
 .node circle {
-  fill: #999;
+  fill: #fff;
+/*   stroke: steelblue; */
+  stroke-width: 3px;
 }
 
 .node text {
-  font: 10px sans-serif;
-}
-
-.node--internal circle {
-  fill: #555;
-}
-
-.node--internal text {
-  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+  font: 12px sans-serif;
 }
 
 .link {
   fill: none;
-  stroke: #555;
-  stroke-opacity: 0.4;
-  stroke-width: 1.5px;
+  stroke: #ccc;
+/*   stroke-width: 2px; */
+}
+
+
+.sidenav {
+
+    width: 33%; 
+    position: fixed; 
+    z-index: 1;
+    top: 0; 
+    right: 0;
+    background-color: #e0e0e0;  Black 
+    overflow-x: hidden; 
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+
+.sidenav a {
+    padding: 6px 18px 6px 16px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Style page content */
+.main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+.mystyle {
+    width: 100%;
+    padding: 25px;
+    background-color: coral;
+    color: white;
+    font-size: 25px;
+    box-sizing: border-box;
 }
 
 </style>
-<svg width="960" height="2000"></svg>
+
+
+<!--<div id="myDIV">
+  This is my DIV element.
+</div> -->
+<body>
+
+
+<!--
+<div id="popu" class="sidenav">
+  <a href="#about">About</a>
+</div> 
+-->
+
+<div id="myDIV">
+This is a DIV element.
+</div>
+
+<!-- load the d3.js library -->	
 <script src="https://d3js.org/d3.v4.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+ <script type="text/javascript" src="dat.json"></script>
+<script src="data.json"></script>
+<script>
+  let myEl = "erb"
+  $("#myEl").load("/data.json");
+  console.log(myEl);
+</script>
 <script>
 
-//<script src="//d3js.org/d3.v3.min.js">
 
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height"),
-    g = svg.append("g").attr("transform", "translate(40,0)");
+var side = "eibirbgiurbierbirebgigbreigbreiugberiguberigberigber"
+var side2 = "erojnr"
 
-var tree = d3.tree()
-    .size([height, width - 160]);
+function myFunction(d) {
+  var x = document.getElementById("popu");
+  if (d.state != 0) {
+    console.log("1"),
+    
+x.text = d.data.name,
+    d.state = 1;
+  } else {
+    console.log("0"),
+    x.innerHTML = " ",
+    d.state = 0;
+  }
+}
+function myTogg(d) {
+   var element = document.getElementById("myDIV");
+   //element.innerHTML(d.data.name);
 
-var stratify = d3.stratify()
-    .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
+   element.classList.toggle("mystyle");
+}
+var treeData = {"p": 2};
 
-d3.csv("https://danieldrichards.github.io/flare.csv", function(error, data) {
-  if (error) throw error;
+// d3.json("https://danieldrichards.github.io/d.json", function(error, data) {
+//   var r = JSON.parse(data);
+//   console.log(data);
 
-  var root = stratify(data)
-      .sort(function(a, b) { return (a.height - b.height) || a.id.localeCompare(b.id); });
+// });
+// function readTextFile(file, callback) {
+//     var rawFile = new XMLHttpRequest();
+//     rawFile.overrideMimeType("application/json");
+//     rawFile.open("GET", file, true);
+//     rawFile.onreadystatechange = function() {
+//         if (rawFile.readyState === 4 && rawFile.status == "200") {
+//             callback(rawFile.responseText);
+//         }
+//     }
+//     rawFile.send(null);
+// }
 
-  var link = g.selectAll(".link")
-    .data(tree(root).links())
-    .enter().append("path")
-      .attr("class", "link")
-      .attr("d", d3.linkHorizontal()
-          .x(function(d) { return d.y; })
-          .y(function(d) { return d.x; }));
+//usage:
+// d3.json("https://danieldrichards.github.io/d.json", function(error, text){
+//     var data = JSON.parse(text);
+//     console.log(data);
+// });
+// $.getJSON("dat.json" function (data) {
+//     $.each(data, function (index, value) {
+//        console.log(value);
+//     });
+// });
 
-  var node = g.selectAll(".node")
-    .data(root.descendants())
-    .enter().append("g")
-      .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
-      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-
-  node.append("circle")
-      .attr("r", 2.5);
-
-  node.append("text")
-      .attr("dy", 3)
-      .attr("x", function(d) { return d.children ? -8 : 8; })
-      .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
-      .text(function(d) { return d.id.substring(d.id.lastIndexOf(".") + 1); });
+d3.json("d.json", function(error, data) {
+  var temp = JSON.parse(data);
+  console.log(data);
 });
+// Set the dimensions and margins of the diagram
+var margin = {top: 20, right: 90, bottom: 30, left: 90},
+    width = 960 - margin.left - margin.right,
+    height = 900 - margin.top - margin.bottom;
+
+var colorScale = d3.scaleLinear()
+    .domain([0, 1])
+		.range(['red', 'green']);
+var widthScale = d3.scaleLinear()
+		.domain([1,80])
+		.range([1, 10]);
+
+// append the svg object to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate("
+          + margin.left + "," + margin.top + ")");
+
+var i = 0,
+    duration = 500,
+    root;
+
+// declares a tree layout and assigns the size
+var treemap = d3.tree().size([height, width]);
+
+// Assigns parent, children, height, depth
+root = d3.hierarchy(treeData, function(d) { return d.children; });
+root.x0 = height / 2;
+root.y0 = 0;
+
+// Collapse after the second level
+//root.children.forEach(collapse);
+root.children.forEach(expand_mainline);
+
+update(root);
+
+// Collapse the node and all it's children
+function collapse(d) {
+  if(d.children) {
+    d._children = d.children
+    d._children.forEach(collapse)
+    d.children = null
+  }
+}
+
+
+//function exexpand_mainline(d){}
+function expand_mainline(d) {
+  if(d._children) {
+    console.log("Hello world!")
+    d.children = d._children
+    d.children.forEach(expand_mainline)
+    d._children = null
+    //update(d);
+     //
+  }
+}
+
+
+function update(source) {
+
+  // Assigns the x and y position for the nodes
+  var treeData = treemap(root);
+
+  // Compute the new tree layout.
+  var nodes = treeData.descendants(),
+      links = treeData.descendants().slice(1);
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d){ d.y = d.depth * 180});
+
+  // ****************** Nodes section ***************************
+
+  // Update the nodes...
+  var node = svg.selectAll('g.node')
+      .data(nodes, function(d) {return d.id || (d.id = ++i); });
+
+  // Enter any new modes at the parent's previous position.
+  var nodeEnter = node.enter().append('g')
+      .attr('class', 'node')
+      .attr("transform", function(d) {
+        return "translate(" + source.y0 + "," + source.x0 + ")";
+    })
+    .on('click', click);
+
+  // Add Circle for the nodes
+  nodeEnter.append('circle')
+      .attr('class', 'node')
+      .attr('r', 1e-6)
+      .style("fill", function(d) {
+          return (d.col != 1) ? "lightsteelblue" : "#33FF3C";
+      })
+  		.style("stroke", function(d){return colorScale(d.col)});
+
+  // Add labels for the nodes
+  nodeEnter.append('text')
+      .attr("dy", ".35em")
+      .attr("x", function(d) {
+          return d.children || d._children ? -20 : 20;
+      })
+      .attr("text-anchor", function(d) {
+          return d.children || d._children ? "end" : "start";
+      })
+      .text(function(d) { return d.data.name; })
+  		.style("fill", function(d){return colorScale(d.col)});
+
+  // UPDATE
+  var nodeUpdate = nodeEnter.merge(node);
+
+  // Transition to the proper position for the node
+  nodeUpdate.transition()
+    .duration(duration)
+    .attr("transform", function(d) { 
+        return "translate(" + d.y + "," + d.x + ")";
+     });
+
+  // Update the node attributes and style
+  nodeUpdate.select('circle.node')
+    .attr('r', 15)
+    .style("fill", function(d) {
+        return (d.col != 1) ? "lightsteelblue" : "#33FF3C";
+    })
+    .attr('cursor', 'pointer');
+
+
+  // Remove any exiting nodes
+  var nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) {
+          return "translate(" + source.y + "," + source.x + ")";
+      })
+      .remove();
+
+  // On exit reduce the node circles size to 0
+  nodeExit.select('circle')
+    .attr('r', 1e-11);
+
+  // On exit reduce the opacity of text labels
+  nodeExit.select('text')
+    .style('fill-opacity', 1e-11);
+
+  // ****************** links section ***************************
+
+  // Update the links...
+  var link = svg.selectAll('path.link')
+      .data(links, function(d) { return d.id; })
+  		.style('stroke-width', function(d){
+        return widthScale(d.data.value)
+      });
+
+  // Enter any new links at the parent's previous position.
+  var linkEnter = link.enter().insert('path', "g")
+      .attr("class", "link")
+      .attr('d', function(d){
+        var o = {x: source.x0, y: source.y0}
+        return diagonal(o, o)
+      })
+  		.style('stroke-width', function(d){
+        return widthScale(d.data.value)
+      });
+
+  // UPDATE
+  var linkUpdate = linkEnter.merge(link);
+
+  // Transition back to the parent element position
+  linkUpdate.transition()
+      .duration(duration)
+      .attr('d', function(d){ return diagonal(d, d.parent) });
+
+  // Remove any exiting links
+  var linkExit = link.exit().transition()
+      .duration(duration)
+      .attr('d', function(d) {
+        var o = {x: source.x, y: source.y}
+        return diagonal(o, o)
+      })
+  		.style('stroke-width', function(d){
+        return widthScale(d.data.value)
+      })
+      .remove();
+
+  // Store the old positions for transition.
+  nodes.forEach(function(d){
+    d.x0 = d.x;
+    d.y0 = d.y;
+  });
+
+  // Creates a curved (diagonal) path from parent to the child nodes
+  function diagonal(s, d) {
+
+    path = `M ${s.y} ${s.x}
+            C ${(s.y + d.y) / 2} ${s.x},
+              ${(s.y + d.y) / 2} ${d.x},
+              ${d.y} ${d.x}`
+
+    return path
+  }
+
+  // Toggle children on click.
+  function click(d) {
+    console.log(d.data.name)
+    myTogg(d)
+    //myFunction(d)
+    if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+    update(d);
+  }
+}
+
 
 </script>
+</body>
