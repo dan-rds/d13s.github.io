@@ -147,15 +147,17 @@ var treeData = {"p": 2};
 //     var data = JSON.parse(text);
 //     console.log(data);
 // });
-// $.getJSON("dat.json" function (data) {
-//     $.each(data, function (index, value) {
-//        console.log(value);
-//     });
-// });
+
 
 //d3.json("dat.json", function(error, data) {
-var temp = JSON.parse(dat.json);
+var temp = JSON.parse(dat);
 console.log(temp);
+
+$.getJSON("dat.json" function (data) {
+    $.each(data, function (index, value) {
+       console.log(value);
+    });
+});
 //});
 // Set the dimensions and margins of the diagram
 var margin = {top: 20, right: 90, bottom: 30, left: 90},
